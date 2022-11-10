@@ -5,9 +5,6 @@
     <title>Fiche</title>
 
     <?php
-        //print_r($_POST);
-    ?>
-    <?php
         extract($_POST);
         include("../bdd/pdo.php");
         $connect = connect();
@@ -77,12 +74,27 @@
     ---------------------------------------------------------
     <br><br>
 
+    <script>
+        var canDisplaySoluce = true;
+        function showSoluce()
+        {
+            var item = document.getElementById("soluce");
+            if (canDisplaySoluce) {item.style.display = "block"; canDisplaySoluce = false;} 
+            else {item.style.display = "none"; canDisplaySoluce = true;}
+        }
+    </script>
+    <style>#soluce{display : none;}</style>
     <?php
 
     //Button Afficher/Cacher la solution
+    echo "<div onclick='showSoluce()'>";
+    echo "<label for='butDisplaySoluce'> Cacher la solution : </label>";
+    echo "<input type='checkbox' id='butDisplaySoluce' name='butDisplaySoluce'/>";
+    echo "</div>";
 
         //SOLUCEFICHE
-        echo "<div id='soluce'>"
+        
+        echo "<div id='soluce'>";
         echo "<br> [";
         echo "Solution de la fiche : ".$request['SOLUCEFICHE'];
         echo "] <br>";
@@ -95,15 +107,28 @@
     <br><br>
     ---------------------------------------------------------
     <br><br>
-
+    <script>
+        var canDisplayCom = true;
+        function showComments()
+        {
+            var item = document.getElementById("comments");
+            if (canDisplayCom) {item.style.display = "block"; canDisplayCom = false;} 
+            else {item.style.display = "none"; canDisplayCom = true;}
+        }
+    </script>
+    <style>#comments{display : none;}</style>
     <?php
 
     //Button Afficher/Cacher les commentaires
+    echo "<div onclick='showComments()'>";
+    echo "<label for='butDisplayComments'> Cacher les commentaires : </label>";
+    echo "<input type='checkbox' id='butDisplayComments' name='butDisplayComments'/>";
+    echo "</div>";
 
         //IDREFFICHE = IDFICHE
-        echo "<div id='comments'>"
+        echo "<div id='comments'>";
         echo "<br> [";
-        echo "Commentaires de la fiche : <br>";
+        echo "Commentaires de la fiche : <br> <br><br>";
         
         try
         {
@@ -112,10 +137,10 @@
                 echo "[ ";
                 $rAuteurCom = $connect->query('SELECT * FROM compte WHERE IDCOMPTE=\''.$row['IDAUTEURCOM'].'\'');
                 $rAuteurCom = $rAuteurCom->fetch();
-                echo "Auteur : ".$row['USERNAME']."<br>";
+                echo "Auteur : ".$rAuteurCom['USERNAME']."<br>";
                 echo "Commentaire : <br>";
                 echo $row['DATACOM'];
-                echo " ]<br>";
+                echo " ]<br><br>";
 
             //Button signalement commentaire --
             // /!\ ADMIN : Supression commentaire
@@ -124,7 +149,7 @@
         }
         catch (Exception $E){/**/}
         
-        echo "] <br>";
+        echo "<br>] <br>";
         echo "<div id='soluce'>"
 
         //Button Commenter --
