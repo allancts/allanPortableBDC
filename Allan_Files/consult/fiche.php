@@ -23,6 +23,7 @@
     ?>
 </head>
 <body>
+<center>
     <br><br>--------------------------<br><br>
 
     <?php
@@ -202,6 +203,6 @@
             echo "</form>";
         }
     ?>
-    
+</center>
 </body>
 </html>
