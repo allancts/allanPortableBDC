@@ -5,6 +5,7 @@
     <title>Fiche</title>
 
     <?php
+        error_reporting(E_ERROR | E_PARSE);
         extract($_POST);
         include("../bdd/pdo.php");
         $connect = connect();
@@ -15,7 +16,7 @@
         $request = $connect->query($sql);
         $request = $request->fetch();
 
-        if(empty($idCompte) && !isset($idCompte)){$isAnonyme = true;}else{$isAnonyme = false;}
+        if(empty($idCompte) && !isset($idCompte) && $idCompte < 1){$isAnonyme = true;}else{$isAnonyme = false;}
         $rCompte = $connect->query('SELECT * FROM compte WHERE IDCOMPTE=\''.$idCompte.'\'');
         $rCompte = $rCompte->fetch();
         if ($rCompte['isAdmin']){$isAdmin = true;}else{$isAdmin = false;}
@@ -95,7 +96,7 @@
 
     //Button Afficher/Cacher la solution
     echo "<div onclick='showSoluce()'>";
-    echo "<label for='butDisplaySoluce'> Cacher la solution : </label>";
+    echo "Afficher la solution : ";
     echo "<input type='checkbox' id='butDisplaySoluce' name='butDisplaySoluce'/>";
     echo "</div>";
 
@@ -128,7 +129,7 @@
 
     //Button Afficher/Cacher les commentaires
     echo "<div onclick='showComments()'>";
-    echo "<label for='butDisplayComments'> Cacher les commentaires : </label>";
+    echo "Afficher les commentaires : ";
     echo "<input type='checkbox' id='butDisplayComments' name='butDisplayComments'/>";
     echo "</div>";
 
@@ -157,7 +158,7 @@
         catch (Exception $E){/**/}
         
         echo "<br>] <br>";
-        echo "<div id='soluce'>"
+        echo "<div id='soluce'>";
 
         //Button Commenter --
         if(!$isAnonyme)

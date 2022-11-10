@@ -5,6 +5,7 @@
     <title>Accueil</title>
 
     <?php
+        error_reporting(E_ERROR | E_PARSE);
         global $listCat;
         global $totalCat;
         //print_r($_POST);
@@ -13,13 +14,20 @@
         extract($_POST);
         include("bdd/pdo.php");
         $connect = connect();
+
+        if(empty($idCompte) && !isset($idCompte) && $idCompte < 1){$isAnonyme = true;}else{$isAnonyme = false;}
     ?>
 </head>
 <body>
-    <form action="post/fiche.php" method="POST">
-    <input type="hidden" name="idCompte" value = <?php echo $idCompte; ?>>
-    <button type='submit'> CREER FICHE </button>
-    </form>
+    <?php
+        if(!$isAnonyme)
+        {
+            echo "<form action='post/fiche.php' method='POST'>";
+            echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
+            echo "<button type='submit'> CREER FICHE </button>";
+            echo "</form>";
+        }
+    ?>
 
     <br><br>
     ---------------------------------------------------------
@@ -51,11 +59,13 @@
         }
         //******** FIN CHECKBOX
     ?>
-        <br>
-        <input type="hidden" name="idCompte" value = <?php echo $idCompte; ?>>
-        <input type="hidden" name="haveCat" value = 1>
-        <input type='hidden' name='totalCat' value=<?php echo $totalCat;?>>
-        <button type='submit'> SEARCH </button>
+    <br>
+    <?php
+        if(!$isAnonyme){echo "<input type='hidden' name='idCompte' value = ".$idCompte.";>";}   
+    ?>
+    <input type="hidden" name="haveCat" value = 1>
+    <input type='hidden' name='totalCat' value=<?php echo $totalCat;?>>
+    <button type='submit'> SEARCH </button>
     </form>
 
     <br><br>
@@ -84,7 +94,7 @@
                     foreach ($resultFICHE as $row) {
                         echo "<form action='consult/fiche.php' method='POST'>";
                         echo "[ ".$row["IDFICHE"] ." : ".$row["CATEGORIEFICHE"]." : ".$row["NOMFICHE"]." ]";
-                        echo "<input type='hidden' name='idCompte' value = ".$idCompte.";>";
+                        if(!$isAnonyme){echo "<input type='hidden' name='idCompte' value = ".$idCompte.";>";}                 
                         echo "<input type='hidden' name='idFiche' value = ".$row["IDFICHE"].";>";
                         echo "<button type='submit'> -> </button>";
                         echo "</form>"."<br><br>";

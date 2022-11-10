@@ -5,6 +5,7 @@
     <title>Commentaire</title>
 
     <?php
+        error_reporting(E_ERROR | E_PARSE);
         extract($_POST);
         include("../bdd/pdo.php");
         $connect = connect();
