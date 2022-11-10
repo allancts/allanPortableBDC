@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Fiche</title>
+    <title>Créer Fiche</title>
 
     <?php
         error_reporting(E_ERROR | E_PARSE);

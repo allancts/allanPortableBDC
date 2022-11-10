@@ -174,7 +174,7 @@
                 {
                     echo "<form action='../post/report/comments.php' method='POST'>";
                     echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
-                    echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
+                    echo "<input type='hidden' name='idCom' value = ".$row['IDCOM'].">";
                     echo "<button type='submit'> SIGNALER COMMENTAIRE </button>";
                     echo "</form>";
                 }
