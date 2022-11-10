@@ -158,12 +158,12 @@
         catch (Exception $E){/**/}
         
         echo "<br>] <br>";
-        echo "<div id='soluce'>";
+        echo "</div>";
 
         //Button Commenter --
         if(!$isAnonyme)
         {
-            echo "<form action='post/comments.php' method='POST'>";
+            echo "<form action='../post/comments.php' method='POST'>";
             echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
             echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
             echo "<button type='submit'> CREER FICHE </button>";
