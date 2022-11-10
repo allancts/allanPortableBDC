@@ -5,7 +5,7 @@
     <title>Fiche</title>
 
     <?php
-        print_r($_POST);
+        //print_r($_POST);
     ?>
     <?php
         extract($_POST);
@@ -70,23 +70,62 @@
 
         // /!\ ADMIN : Certifier / Décertifier
             // Etes vous sûr ?
-        
-//    --
+
+    ?>
+
+    <br><br>
+    ---------------------------------------------------------
+    <br><br>
+
+    <?php
 
     //Button Afficher/Cacher la solution
 
         //SOLUCEFICHE
+        echo "<div id='soluce'>"
+        echo "<br> [";
+        echo "Solution de la fiche : ".$request['SOLUCEFICHE'];
+        echo "] <br>";
 
             //Button proposé une modif --
 
-//    --
+        echo "</div>";
+    ?>
+
+    <br><br>
+    ---------------------------------------------------------
+    <br><br>
+
+    <?php
 
     //Button Afficher/Cacher les commentaires
 
         //IDREFFICHE = IDFICHE
+        echo "<div id='comments'>"
+        echo "<br> [";
+        echo "Commentaires de la fiche : <br>";
+        
+        try
+        {
+            $rComments = $connect->query('SELECT * FROM commentaire WHERE IDREFFICHE=\''.$request['IDFICHE'].'\'');
+            foreach ($rComments as $row) {
+                echo "[ ";
+                $rAuteurCom = $connect->query('SELECT * FROM compte WHERE IDCOMPTE=\''.$row['IDAUTEURCOM'].'\'');
+                $rAuteurCom = $rAuteurCom->fetch();
+                echo "Auteur : ".$row['USERNAME']."<br>";
+                echo "Commentaire : <br>";
+                echo $row['DATACOM'];
+                echo " ]<br>";
+
             //Button signalement commentaire --
             // /!\ ADMIN : Supression commentaire
                 // Etes vous sûr ?
+            }
+        }
+        catch (Exception $E){/**/}
+        
+        echo "] <br>";
+        echo "<div id='soluce'>"
 
         //Button Commenter --
 
