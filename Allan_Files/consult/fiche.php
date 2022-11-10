@@ -9,9 +9,16 @@
         include("../bdd/pdo.php");
         $connect = connect();
 
+        if(empty($idFiche) && !isset($idFiche)){/* rediriger vers accueil*/}
+
         $sql= 'SELECT * FROM fiche WHERE IDFICHE='.$idFiche;
         $request = $connect->query($sql);
         $request = $request->fetch();
+
+        if(empty($idCompte) && !isset($idCompte)){$isAnonyme = true;}else{$isAnonyme = false;}
+        $rCompte = $connect->query('SELECT * FROM compte WHERE IDCOMPTE=\''.$idCompte.'\'');
+        $rCompte = $rCompte->fetch();
+        if ($rCompte['isAdmin']){$isAdmin = true;}else{$isAdmin = false;}
     ?>
 </head>
 <body>
@@ -153,6 +160,14 @@
         echo "<div id='soluce'>"
 
         //Button Commenter --
+        if(!$isAnonyme)
+        {
+            echo "<form action='post/comments.php' method='POST'>";
+            echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
+            echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
+            echo "<button type='submit'> CREER FICHE </button>";
+            echo "</form>";
+        }
 
 
     ?>

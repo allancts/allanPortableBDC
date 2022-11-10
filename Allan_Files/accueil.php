@@ -16,6 +16,11 @@
     ?>
 </head>
 <body>
+    <form action="post/fiche.php" method="POST">
+    <input type="hidden" name="idCompte" value = <?php echo $idCompte; ?>>
+    <button type='submit'> CREER FICHE </button>
+    </form>
+
     <br><br>
     ---------------------------------------------------------
     <br><br>
@@ -88,6 +93,8 @@
                 else{echo "[ AUCUN RESULTAT ! ]";}
             }
             catch (Exception $E){/**/}
+
+            //NAV BAR
         }
     ?>
 
