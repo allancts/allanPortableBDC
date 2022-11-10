@@ -69,11 +69,26 @@
         echo "] <br>";
 
         //Button signalement --
+        if(!$isAnonyme)
+        {
+            echo "<form action='../post/report/fiche.php' method='POST'>";
+            echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
+            echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
+            echo "<button type='submit'> SIGNALER LA FICHE </button>";
+            echo "</form>";
+        }
 
         // /!\ ADMIN : Supression fiche
+        if($isAdmin)
+        {
+        }
             // Etes vous sûr ?
 
         // /!\ ADMIN : Certifier / Décertifier
+        if($isAdmin)
+        {
+            echo "<button id='butCertif' type='button'> Certifier ou Uncertifier </button>";
+        }
             // Etes vous sûr ?
 
     ?>
@@ -96,8 +111,7 @@
 
     //Button Afficher/Cacher la solution
     echo "<div onclick='showSoluce()'>";
-    echo "Afficher la solution : ";
-    echo "<input type='checkbox' id='butDisplaySoluce' name='butDisplaySoluce'/>";
+    echo "<button id='butDisplaySoluce' type='button'> Afficher / Cacher la solution </button>";
     echo "</div>";
 
         //SOLUCEFICHE
@@ -108,6 +122,14 @@
         echo "] <br>";
 
             //Button proposé une modif --
+            if(!$isAnonyme)
+            {
+                echo "<form action='../post/suggest.php' method='POST'>";
+                echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
+                echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
+                echo "<button type='submit'> PROPOSER UNE MODIFICATION </button>";
+                echo "</form>";
+            }
 
         echo "</div>";
     ?>
@@ -129,8 +151,7 @@
 
     //Button Afficher/Cacher les commentaires
     echo "<div onclick='showComments()'>";
-    echo "Afficher les commentaires : ";
-    echo "<input type='checkbox' id='butDisplayComments' name='butDisplayComments'/>";
+    echo "<button id='butDisplayComments' type='button'> Afficher / Cacher les commentaires</button>";
     echo "</div>";
 
         //IDREFFICHE = IDFICHE
@@ -148,10 +169,21 @@
                 echo "Auteur : ".$rAuteurCom['USERNAME']."<br>";
                 echo "Commentaire : <br>";
                 echo $row['DATACOM'];
+                    //Button signalement commentaire --
+                if(!$isAnonyme)
+                {
+                    echo "<form action='../post/report/comments.php' method='POST'>";
+                    echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
+                    echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
+                    echo "<button type='submit'> SIGNALER COMMENTAIRE </button>";
+                    echo "</form>";
+                }
                 echo " ]<br><br>";
 
-            //Button signalement commentaire --
             // /!\ ADMIN : Supression commentaire
+            if($isAdmin)
+            {
+            }
                 // Etes vous sûr ?
             }
         }
@@ -166,11 +198,9 @@
             echo "<form action='../post/comments.php' method='POST'>";
             echo "<input type='hidden' name='idCompte' value = ".$idCompte.">";
             echo "<input type='hidden' name='idFiche' value = ".$idFiche.">";
-            echo "<button type='submit'> CREER FICHE </button>";
+            echo "<button type='submit'> AJOUTER COMMENTAIRE </button>";
             echo "</form>";
         }
-
-
     ?>
     
 </body>
